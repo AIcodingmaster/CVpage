@@ -1,0 +1,15 @@
+{%extends 'base.html' %}
+{%block content%}
+<ul>
+    {%if paper_list%}
+        {%for paper in paper_list%}
+        <li>
+            <a href="{{url_for('paper.detail',paper_id=paper.id)}}">{{paper.subject}}</a>
+        </li>    
+        {%endfor%}
+    {%else%}
+        <div>아무것도 없습니다.</div>
+    {%endif%}
+    <a href="{{url_for('paper.create')}}">읽은 논문 등록하기</a>
+</ul>
+{%endblock%}
