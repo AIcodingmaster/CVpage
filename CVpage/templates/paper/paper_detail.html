@@ -1,8 +1,0 @@
-{%extends 'base.html'%}
-{%block content%}
-<ul>
-    <li>{{paper.subject}}</li>
-    <li>{{paper.content}}</li>
-    <li><a href="{{url_for('static', filename='paper/'+paper.file_name)}}">{{paper.file_name}}</li>
-</ul>
-{%endblock%}

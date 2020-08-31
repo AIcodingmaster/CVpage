@@ -1,0 +1,45 @@
+<header class="nav-container">
+    <div class="collapse bg-white" id="navbarHeader" >
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4"><p>
+            <h4 class="text-black">CVpage</p>
+            <p class="text-muted">
+              This site is designed for personally read papers and project management.</p></h4>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4 class="text-black">Menu</h4>
+            <ul class="list-unstyled">
+              <li><a href="{{url_for('about.about')}}#aboutme" class="textblack">About me</a></li>
+              <li><a href="https://wikidocs.net/book/5049" class="textblack">Paper Read</a></li>
+              <li><a href="https://github.com/AIcodingmaster" class="textblack">Github</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="wrap_gnb navbar navbar-black bg-black shadow-sm">
+    <div class="container d-flex justify-content-between">
+        <a href="{{url_for('about.about')}}" class="navbar-brand d-flex align-items-center">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list" fill="black" xmlns="http://www.w3.org/2000/svg" style="margin:10px;">
+            <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+            <path fill-rule="evenodd" d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
+            <circle cx="3.5" cy="5.5" r=".5"/>
+            <circle cx="3.5" cy="8" r=".5"/>
+            <circle cx="3.5" cy="10.5" r=".5"/>
+          </svg>
+          <strong class=textblack>Project</strong>
+        </a>
+        {%if g.user%}
+        <a href="{{url_for('main.logout')}}">
+          <strong class="textblack" style="opacity: 0.5;margin-left:-30rem">({{g.user}})</strong>
+        </a>
+        {%endif%}
+        <button class=navButton style="background-color:white;border:0;outline:0" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>

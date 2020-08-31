@@ -1,28 +1,24 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
 import config
-from datetime import datetime
-db=SQLAlchemy()#db 생성
-migrate=Migrate()#Migrate 생성
+db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
-    app=Flask(__name__)#name은 이 패키지 이름을 의미함(CVpage)
-
-    #-- config(db 환경변수)를 app로 끌어들임 --#
+    app = Flask(__name__)
+    from .views import workdetail_view,main_view,about_view
+    #db 설정 등록
     app.config.from_object(config)
-    
-    #-- ORM(SQLAlchemy, Migrate시작)--#
+    #ORM(db 코드 추상화) 등록
     db.init_app(app)
     migrate.init_app(app, db)
-
-    #-- 모델 추가 --#
-    from . import models #migrate 객체가 우리 모델을 참조 할 수 있도록
-
-    #--블루프린트 추가--#
-    from .views import main_view,paper_view
+    from . import models
+    #블루 프린트 등록
+    app.register_blueprint(workdetail_view.bp)
     app.register_blueprint(main_view.bp)
-    app.register_blueprint(paper_view.bp)
-    #--app 가동--#
+    app.register_blueprint(about_view.bp)
+    from .filter import format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
     return app
-

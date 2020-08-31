@@ -1,6 +1,26 @@
-from flask import Blueprint,render_template,redirect,url_for
-bp=Blueprint('main',__name__,url_prefix='/')#(블루프린트 이름, 패키지 이름, 라우트 접미사)
+from flask import Blueprint,redirect,url_for,session,g
+bp = Blueprint('main', __name__, url_prefix='/')
+
+@bp.before_app_request
+def load_logged_in_user():
+    pw= session.get('pw')
+    if pw is 123:
+        g.user = "admin"
+
+@bp.route('/logout/')
+def logout():
+    session.clear()
+    return redirect(url_for('about.about'))
+
+@bp.route('/admin/<int:pw>')
+def admin(pw):
+    if pw==123:
+        session.clear()
+        session['pw']=123
+        return redirect(url_for('about.about'))
+    else:
+        return redirect(url_for('about.about'))
 
 @bp.route('/')
 def index():
-    return redirect(url_for('paper._list'))
+    return redirect(url_for('about.about'))
