@@ -55,7 +55,7 @@ def modify(project_id):
             if pic1 is None or pic2 is None or video is None:
                 return render_template('project_form.html', form=form)
             os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN+'1.jpg'))
-            os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN'2.jpg'))
+            os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN+'2.jpg'))
             os.remove('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(bpicN+'.mp4'))
             pic1.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'1.jpg'))
             pic2.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'2.jpg'))
