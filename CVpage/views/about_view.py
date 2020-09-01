@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from CVpage.models import Project,db
 from CVpage.form import ProjectForm
 from datetime import datetime
+import os
 bp = Blueprint('about', __name__, url_prefix='/about/')
 
 @bp.route('/')
@@ -23,9 +24,9 @@ def add():
         pic2=request.files['pic2']
         video=request.files['video']
         pictureName=form.pictureName.data
-        pic1.save('C:\\pythonprojects\\CVpage\\CVpage/static/img/'+secure_filename(pictureName+'1.jpg'))
-        pic2.save('C:\\pythonprojects\\CVpage\\CVpage/static/img/'+secure_filename(pictureName+'2.jpg'))
-        video.save('C:\\pythonprojects\\CVpage\\CVpage/static/video/'+secure_filename(pictureName+'.mp4'))
+        pic1.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'1.jpg'))
+        pic2.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'2.jpg'))
+        video.save('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(pictureName+'.mp4'))
         db.session.add(p)
         db.session.commit()
         return redirect(url_for('about.about'))
@@ -45,8 +46,20 @@ def modify(project_id):
     p=Project.query.get(project_id)
     if request.method =="POST":#작성을 하고 form태그의 post요청으로 들어간 것
         form = ProjectForm()
+        bpicN=p.pictureName
         if  g.user is "admin" and form.validate_on_submit():
+            pic1=request.files['pic1']
+            pic2=request.files['pic2']
+            video=request.files['video']
             form.populate_obj(p)
+            if pic1 is None or pic2 is None or video is None:
+                return render_template('project_form.html', form=form)
+            os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN+'1.jpg'))
+            os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN'2.jpg'))
+            os.remove('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(bpicN+'.mp4'))
+            pic1.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'1.jpg'))
+            pic2.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'2.jpg'))
+            video.save('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(pictureName+'.mp4'))
             db.session.commit()
             return redirect(url_for('about.about'))
     else:#다른 html에서 접근한 것(GET요청일 경우)
