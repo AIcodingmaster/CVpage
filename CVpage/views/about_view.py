@@ -37,6 +37,10 @@ def add():
 def delete(project_id):
     p=Project.query.get(project_id)
     if g.user is "admin":
+        import os
+        os.remove(f'./CVpage/static/img/{p.pictureName}1.jpg')
+        os.remove(f'./CVpage/static/img/{p.pictureName}2.jpg')
+        os.remove(f'./CVpage/static/video/{p.pictureName}.mp4')
         db.session.delete(p)
         db.session.commit()
     return redirect(url_for('about.about'))
@@ -57,9 +61,9 @@ def modify(project_id):
             os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN+'1.jpg'))
             os.remove('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(bpicN+'2.jpg'))
             os.remove('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(bpicN+'.mp4'))
-            pic1.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'1.jpg'))
-            pic2.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(pictureName+'2.jpg'))
-            video.save('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(pictureName+'.mp4'))
+            pic1.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(form.pictureName.data+'1.jpg'))
+            pic2.save('/home/ubuntu/projects/CVpage/CVpage/static/img/'+secure_filename(form.pictureName.data+'2.jpg'))
+            video.save('/home/ubuntu/projects/CVpage/CVpage/static/video/'+secure_filename(form.pictureName.data+'.mp4'))
             db.session.commit()
             return redirect(url_for('about.about'))
     else:#다른 html에서 접근한 것(GET요청일 경우)
